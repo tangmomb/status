@@ -1,31 +1,62 @@
-# Change these first
-owner: upptime # Your GitHub organization or username, where this repository lives
-repo: upptime # The name of this repository
+# Surveillance externe du RAG IONIS (VPS Contabo) : GitHub Actions teste les URL toutes les
+# 5 minutes depuis l'extérieur du VPS, ouvre une issue par incident et publie la page de statut.
+# Alertes Telegram : secrets NOTIFICATION_TELEGRAM, NOTIFICATION_TELEGRAM_BOT_KEY,
+# NOTIFICATION_TELEGRAM_CHAT_ID. Docs : https://upptime.js.org/docs/configuration
+owner: tangmomb
+repo: status
 
 sites:
-  - name: Google
-    url: https://www.google.com
-  - name: Wikipedia
-    url: https://en.wikipedia.org
-  - name: Hacker News
-    url: https://news.ycombinator.com
-  - name: Secret Site
-    url: $SECRET_SITE
+  - name: RAG IONIS · interface
+    url: https://ionis.tanguym.fr
+    maxResponseTime: 5000
+  - name: RAG IONIS · API
+    url: https://ionis.tanguym.fr/health
+    expectedStatusCodes:
+      - 200
+    maxResponseTime: 3000
+  - name: Monitoring Beszel
+    url: https://monitor.tanguym.fr
+    maxResponseTime: 5000
 
 status-website:
-  # Add your custom domain name, or remove the `cname` line if you don't have a domain
-  # Uncomment the `baseUrl` line if you don't have a custom domain and add your repo name there
-  cname: demo.upptime.js.org
-  # baseUrl: /your-repo-name
-  logoUrl: https://raw.githubusercontent.com/upptime/upptime.js.org/master/static/img/icon.svg
-  name: Upptime
-  introTitle: "**Upptime** is the open-source uptime monitor and status page, powered entirely by GitHub."
-  introMessage: This is a sample status page which uses **real-time** data from our [GitHub repository](https://github.com/upptime/upptime). No server required — just GitHub Actions, Issues, and Pages. [**Get your own for free**](https://github.com/upptime/upptime)
+  baseUrl: /status
+  name: Statut · RAG IONIS
+  introTitle: "Statut du **RAG IONIS**"
+  introMessage: >-
+    Disponibilité et temps de réponse mesurés toutes les 5 minutes depuis GitHub Actions,
+    hors du serveur surveillé. Chaque panne ouvre une issue publique dans
+    [ce dépôt](https://github.com/tangmomb/status/issues).
   navbar:
-    - title: Status
+    - title: Statut
       href: /
+    - title: RAG IONIS
+      href: https://ionis.tanguym.fr
     - title: GitHub
       href: https://github.com/$OWNER/$REPO
 
-# Upptime also supports notifications, assigning issues, and more
-# See https://upptime.js.org/docs/configuration
+i18n:
+  activeIncidents: Incidents en cours
+  allSystemsOperational: Tous les systèmes fonctionnent
+  incidentReport: "Incident n°$NUMBER →"
+  activeIncidentSummary: Ouvert le $DATE, $POSTS messages
+  incidentTitle: Incident $NUMBER
+  incidentDetails: Détails de l'incident
+  incidentFixed: Résolu
+  incidentOngoing: En cours
+  incidentOpenedAt: Ouvert le
+  incidentClosedAt: Fermé le
+  incidentBack: ← Tous les incidents
+  pastIncidents: Incidents passés
+  pastIncidentsResolved: Résolu en $MINUTES minutes, $POSTS messages
+  liveStatus: En direct
+  overallUptime: "Disponibilité : $UPTIME"
+  averageResponseTime: "Temps de réponse moyen : $TIMEms"
+  sevenDays: 7 jours
+  thirtyDays: 30 jours
+  oneYear: 1 an
+  allTime: Depuis le début
+  duration: Durée
+  degraded: Dégradé
+  down: En panne
+  up: Opérationnel
+  url: URL
